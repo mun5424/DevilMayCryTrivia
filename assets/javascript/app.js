@@ -35,6 +35,7 @@ $(document).ready(function(){
     var timer = 20; 
     var timerID; 
     var triviaIndex = 0; 
+    var answer = "";
 
 
     startClock = function () {
@@ -46,6 +47,7 @@ $(document).ready(function(){
 
     stopClock = function () {
         clearInterval(timerID); 
+        clockRunning = false; 
         timer = 20; 
     }
 
@@ -57,34 +59,52 @@ $(document).ready(function(){
     });
 
     getNextQuestion = function(){
+        stopClock();
         var game = $("#game");
+        game.empty();
         var timer = $("<p>");
         timer.attr("id", "timer");
+        timer.text("Time Remaining: " + this.timer + " Seconds");
         game.append(timer); 
 
         
-        var tQ = triviaQuestions[triviaIndex];
+        var TQ = triviaQuestions[triviaIndex++];
         var questionDiv = $("<p>");
         questionDiv.attr("id", "question");
-        questionDiv.text("id", tQ["question"]);
+        questionDiv.text(TQ["question"]);
         game.append(questionDiv); 
+        answer = TQ.answer;
 
-        for(var i = 0; i < tQ[choices.length]; i++) 
+        for(var i = 0; i < TQ.choices.length; i++) 
         {
-            var button = $("<btn>");
-            button.attr("id", "question");
-            button.text("id", "choice" + '');
-
+            var button = $("<button>");
+            button.addClass("btn btn-secondary");
+            if(TQ.answer == TQ[i])
+                button.attr("id", "answer");
+            else
+                button.attr("id", "choice" + i + 1);
+            button.text(TQ.choices[i]); 
+            game.append(button); 
         }
 
         startClock(); 
 
-        
     }
 
     timertick = function() {
-        $("#timer").text("Time Remaining: " + timer-- + " Seconds" ); 
+        $("#timer").text("Time Remaining: " + --timer + " Seconds" ); 
+        if(timer === 0)
+        {
+            outOfTime(); 
+        }
     }
+
+    outOfTime = function() {       
+        $("#game").empty();
+        
+        getNextQuestion();
+    }
+
 
     //helper method to shuffle an array
     function shuffle(array) {

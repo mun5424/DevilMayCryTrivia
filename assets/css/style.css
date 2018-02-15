@@ -14,13 +14,13 @@ h1 {
 }
 
 #game { 
-    height: 500px;
+    height: auto;
     text-align: center;
-    padding: 50px;
+    padding: 20px;
 }
 
 #button-start { 
-    width: 30%;
+    width: 40%;
     height: 25%;
     opacity: 1.0;
     font-size: 40px;
@@ -35,11 +35,13 @@ h1 {
 
 #timer {
     font-size: 20px;
+    margin: auto;
+    text-align: center;
 }
 
 .btn-secondary {
     font-size: 20px;
-    width: 40%;
+    width: 60%;
     padding: 10px;
     margin-top: 10px;
     margin-left: auto;
