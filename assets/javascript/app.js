@@ -73,7 +73,7 @@ $(document).ready(function(){
         {
             var button = $("<btn>");
             button.attr("id", "question");
-            button.text("id", tQ["question"]);
+            button.text("id", "choice" + '');
 
         }
 
